@@ -1,68 +1,86 @@
 
 
 
-function getRandom(){
-    return Math.floor(Math.random()*90)+1;
+function getRandom() {
+    return Math.floor(Math.random() * 90) + 1;
 }
 
 
-function getComputerChoice(){
+function getComputerChoice() {
     random_choice = getRandom();
 
-    if( random_choice >= 1 && random_choice <= 30){
+    if (random_choice >= 1 && random_choice <= 30) {
         return ("Rock");
     }
-    else if (random_choice >= 31 && random_choice <= 60){
+    else if (random_choice >= 31 && random_choice <= 60) {
         return ("Paper");
     }
-    else{
+    else {
         return ("Scissors")
     }
 }
 
 
-function getHumanChoice(){
+function getHumanChoice(e) {
 
-    let a = prompt("Enter your Input.");
-    a = a.toUpperCase();
+    let text = e.target.textContent;
+    text = text.toUpperCase();
 
-    if( a === "SCISSORS"){
+    if (text === "SCISSORS") {
         return "Scissors"
     }
-    else if ( a === "ROCK"){
+    else if (text === "ROCK") {
         return "Rock"
     }
     else {
         return "Paper"
     }
-    
+
 }
 
 
-function playGame(){
-    let computer_score = 0;
-    let human_score = 0 ;
 
-    function playRound(computerchoice,humanchoice){
 
-    if(computerchoice == "Rock" && humanchoice == "Paper" || computerchoice == "Paper" && humanchoice == "Scissors" || computerchoice == "Scissors" && humanchoice == "Rock"){
+function playRound(computerchoice,humanchoice) {
+    let human_score=0;
+    let computer_score=0;
+
+    if (computerchoice == "Rock" && humanchoice == "Paper" || computerchoice == "Paper" && humanchoice == "Scissors" || computerchoice == "Scissors" && humanchoice == "Rock") {
         console.log("Human Wins!!");
         human_score++;
     }
-    else if ( computerchoice == "Paper" && humanchoice == "Rock"|| computerchoice == "Scissors" && humanchoice == "Paper" || computerchoice == "Rock" && humanchoice == "Scissors"){
+    else if (computerchoice == "Paper" && humanchoice == "Rock" || computerchoice == "Scissors" && humanchoice == "Paper" || computerchoice == "Rock" && humanchoice == "Scissors") {
         console.log("Computer Wins!!");
         computer_score++;
     }
-    else{
+    else {
         console.log("Its a Draw :))");
     }
 }
 
-    for (i=0; i < 5; i ++){
-        playRound(getComputerChoice(),getHumanChoice());
-    }
 
-    console.log(`The total number of wins after 5 rounds are Human: ${human_score} and Computer: ${computer_score}`)
+
+function uiGame() {
+    const rock = document.createElement("button");
+    const paper = document.createElement("button");
+    const scissors = document.createElement("button");
+
+    const buttons = document.querySelector(".buttons");
+
+
+    rock.textContent = "ROCK";
+    paper.textContent = "PAPER";
+    scissors.textContent = "SCISSORS";
+
+    buttons.appendChild(rock);
+    buttons.appendChild(paper);
+    buttons.appendChild(scissors);
+
+    buttons.addEventListener("click", e=> {
+        playRound(getComputerChoice(), getComputerChoice(e))
+        }
+    )
 }
 
-playGame();
+
+uiGame();
